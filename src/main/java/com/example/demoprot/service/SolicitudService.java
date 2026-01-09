@@ -18,7 +18,15 @@ public class SolicitudService {
 
     // Save a new request
     public Solicitud guardar(Solicitud solicitud) {
-        // TODO validation (prevent manual priority > 5)
+        // Validation: Guard Clause
+        if (solicitud.getPrioridadManual() < 1 || solicitud.getPrioridadManual() > 5) {
+            throw new IllegalArgumentException("La prioridad manual debe estar entre 1 y 5");
+        }
+
+        // Validation: Username required
+        if (solicitud.getUsuario() == null || solicitud.getUsuario().trim().isEmpty()) {
+            throw new IllegalArgumentException("El usuario es obligatorio");
+        }
         return repository.save(solicitud);
     }
 
